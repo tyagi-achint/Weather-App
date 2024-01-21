@@ -1,6 +1,5 @@
 import requests
-
-api_key = '47907507f3828c7d281ea825a0b6e548'
+import datetime
 
 user_input = input("Enter city: ")
 
@@ -30,44 +29,20 @@ todayWeather_data = requests.get(
 if todayWeather_data.json().get('cod') == '404':
     print("No City Found")
 else:
-    # print(todayWeather_data.json())
-    # todayWeather = todayWeather_data.json()['list'][0]['weather'][0]['main']
-    # todayTemp_min = todayWeather_data.json()['list'][0]['temp']['min']
-    # todayTemp_max = todayWeather_data.json()['list'][0]['temp']['max']
 
-    # todayTemp_morning = todayWeather_data.json()['list'][0]['temp']['morn']
-    # todayTemp_evening = todayWeather_data.json()['list'][0]['temp']['eve']
 
-    # todayFeelsLike_morning = todayWeather_data.json()['list'][0]['feels_like']['morn']
-    # todayFeelsLike_evening = todayWeather_data.json()['list'][0]['feels_like']['eve']
-    # print("Today's Weather Forecast:")
-    # print(f"Weather: {todayWeather}")
-    # print(f"Min Temperature: {todayTemp_min}°C")
-    # print(f"Max Temperature: {todayTemp_max}°C")
-    # print(f"Morning Temperature: {todayTemp_morning}°C")
-    # print(f"Evening Temperature: {todayTemp_evening}°C")
-    # print(f"Feels Like (Morning): {todayFeelsLike_morning}°C")
-    # print(f"Feels Like (Evening): {todayFeelsLike_evening}°C")
-    today_weather_data = todayWeather_data.json()['list'][0]['weather'][0]
-    today_temp_data =todayWeather_data.json()['list'][0]['main']
-    today_feels_like_data_morning = todayWeather_data.json()['list'][0]['feels_like']['morn']
-    today_feels_like_data_evening = todayWeather_data.json()['list'][0]['feels_like']['eve']
+    api_response = todayWeather_data.json()
 
-    # Extracting required details
-    today_weather = today_weather_data['main']
-    today_temp_min = today_temp_data['temp_min']
-    today_temp_max = today_temp_data['temp_max']
-    today_temp_morning = today_temp_data['temp']['morn']
-    today_temp_evening = today_temp_data['temp']['eve']
-    today_feels_like_morning = today_feels_like_data_morning
-    today_feels_like_evening = today_feels_like_data_evening
 
-    # Display the information
-    print("Today's Weather Forecast:")
-    print(f"Weather: {today_weather}")
-    print(f"Min Temperature: {today_temp_min}°C")
-    print(f"Max Temperature: {today_temp_max}°C")
-    print(f"Morning Temperature: {today_temp_morning}°C")
-    print(f"Evening Temperature: {today_temp_evening}°C")
-    print(f"Feels Like (Morning): {today_feels_like_morning}°C")
-    print(f"Feels Like (Evening): {today_feels_like_evening}°C")
+    current_date = datetime.datetime.now().strftime('%Y-%m-%d')
+
+
+    current_day_details = [item for item in api_response['list'] if item['dt_txt'].startswith(current_date)]
+
+    for entry in current_day_details:
+        timestamp = datetime.datetime.utcfromtimestamp(entry['dt']).strftime('%Y-%m-%d %H:%M:%S')
+        temperature = entry['main']['temp']
+        feels_like = entry['main']['feels_like']
+        description = entry['weather'][0]['main']
+
+        print(f"Timestamp: {timestamp}, Temperature: {temperature}°C, Feels Like: {feels_like}°C, Description: {description}")
