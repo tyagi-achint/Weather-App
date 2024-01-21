@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Weather App</title>
+</head>
+<body>
+    <div class="container">
+    <h1>Weather App</h1>
+
+    <form method="post">
+        <label for="city">Enter city: </label>
+        <input type="text" id="city" name="city" required>
+        <button type="submit">Get Weather</button>
+    </form>
+
+    {% if error_message %}
+        <p>{{ error_message }}</p>
+    {% endif %}
+
+    {% if city %}
+        <h2>Current Weather in {{ city }}</h2>
+        <p>Weather: {{ currentWeather }}</p>
+        <p>Temperature: {{ currentTemp }}°C</p>
+        <p>Country: {{ country }}</p>
+        <p>Humidity: {{ currentHumidity }}%</p>
+        <p>Feels Like: {{ currentFeels_like }}°C</p>
+
+        <h2>Today's Weather Details</h2>
+        {% for entry in current_day_details %}
+            <p>Timestamp: {{ entry['dt_txt'] }}, Temperature: {{ entry['main']['temp'] }}°C, 
+                Feels Like: {{ entry['main']['feels_like'] }}°C, Description: {{ entry['weather'][0]['main'] }}</p>
+        {% endfor %}
+    {% endif %}
+</div>
+<footer>
+    Copyright © {{current_year}}. All rights reserved.
+    <p>
+        Designed &amp; Developed by <a target="_blank" href="https://tyagi-achint.github.io/">Achint Tyagi</a>
+    </p>
+</footer>
+</body>
+</html>
