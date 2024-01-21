@@ -1,5 +1,6 @@
 import requests
 import datetime
+from api_key import api_key
 
 user_input = input("Enter city: ")
 
