@@ -19,6 +19,10 @@ body {
     box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
+
+.container p{
+  font-family: 'Roboto Slab', serif;
+}
 input {
   margin-top: 0;
   background-color: transparent;
@@ -81,12 +85,14 @@ footer {
     text-align: left;
     margin-bottom: 2px;
   }
-  .details .row{
+.row{
     display: flex;
     justify-content: space-between;
   }
+  .details h2,
   .details h1{
     margin: 1px 0;
+    font-family: 'Lemon', serif;
   }
 
   .errorMessage{
@@ -99,5 +105,15 @@ footer {
 }
 
 .todayDetails{
-  text-align: left;
+  width: fit-content;
+  word-spacing: 2px;
+  margin: 0 0 0 18%;
+}
+img{
+  height: 100px;
+  text-align: end;
+}
+
+hr{
+  width: 100%;
 }

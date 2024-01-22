@@ -5,12 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Lemon&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@800&display=swap" rel="stylesheet">
+
     <title>Weather App</title>
 </head>
 
 <body>
     <div class="container">
-        <h1 class="title">Weather App</h1>
+        <div class="row" style="margin-bottom:15px">
+
+            <h1 class="title" style="text-align: start;">Weather App</h1>
+            <img src="{{ url_for('static', filename='image.png') }}" alt="Weather Image">
+
+        </div>
+
         <form method="post">
             <input type="text" id="city" name="city" placeholder="City Name" required>
             <button type="submit">Get Weather</button>
@@ -30,9 +39,10 @@
                 <p style="text-align: start;">Humidity: {{ currentHumidity }}%</p>
                 <p style=" text-align: end; ">Feels Like: {{ currentFeels_like }}°C</p>
             </div>
-            <h2>Today's Weather Details</h2>
+            <hr>
             {% for entry in current_day_details %}
-            <p class="todayDetails">{{ entry.formatted_timestamp }} : {{ entry['main']['temp'] }}°C,  {{ entry['weather'][0]['main'] }}, 
+            <p class="todayDetails">{{ entry.formatted_timestamp }} : {{ entry['main']['temp'] }}°C, {{
+                entry['weather'][0]['main'] }},
                 Feels Like: {{ entry['main']['feels_like'] }}°C</p>
             {% endfor %}
             {% endif %}
