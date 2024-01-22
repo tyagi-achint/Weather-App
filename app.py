@@ -1,10 +1,16 @@
-
 from flask import Flask, render_template, request
 import requests
 import datetime
 from api_key import api_key
 
 app = Flask(__name__)
+
+def format_timestamp(timestamp):
+    # Convert timestamp to a datetime object
+    dt_object = datetime.datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S')
+    # Format the datetime object to '09 am' format
+    formatted_timestamp = dt_object.strftime('%I %p')
+    return formatted_timestamp
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -30,6 +36,10 @@ def index():
         current_date = datetime.datetime.now().strftime('%Y-%m-%d')
         current_day_details = [item for item in api_response['list'] if item['dt_txt'].startswith(current_date)]
 
+        # Modify the loop for current_day_details
+        for entry in current_day_details:
+            entry['formatted_timestamp'] = format_timestamp(entry['dt_txt'])
+
         return render_template('index.html', city=user_input, currentWeather=currentWeather, currentTemp=currentTemp,
                                country=country, currentHumidity=currentHumidity, currentFeels_like=currentFeels_like,
                                current_day_details=current_day_details)
@@ -37,4 +47,4 @@ def index():
     return render_template('index.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
