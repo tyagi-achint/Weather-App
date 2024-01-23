@@ -30,7 +30,10 @@
 
         {% if city %}
         <div class="details">
-            <h2>{{ city+", "+country }}</h2>
+            <div class="row">
+            <h4 style="text-align: start;">{{ city+", "+country }}</h4>
+           <h4 style="text-align: end;">{{ today_date }}</h4>
+        </div>
             <div class="row">
                 <h1 style="text-align: start;">{{ currentTemp }}°C</h1>
                 <h1 style=" text-align: end; ">{{ currentWeather }}</h1>

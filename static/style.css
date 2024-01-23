@@ -73,7 +73,7 @@ footer {
   }
 
   .details{
-      max-width: 95%;
+      max-width: 70%;
       margin: 20px auto;
       background-color: transparent;
       padding:2px 20px 5px;
@@ -81,7 +81,7 @@ footer {
       border: 2px solid #ccc;
   }
 
-  .details h2{
+  .details h4{
     text-align: left;
     margin-bottom: 2px;
   }
@@ -89,10 +89,11 @@ footer {
     display: flex;
     justify-content: space-between;
   }
-  .details h2,
+  .details h4,
   .details h1{
     margin: 1px 0;
     font-family: 'Lemon', serif;
+    font-weight: 100;
   }
 
   .errorMessage{

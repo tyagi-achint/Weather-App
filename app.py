@@ -37,6 +37,7 @@ def index():
 
         api_response = todayWeather_data.json()
         current_date = datetime.datetime.now().strftime('%Y-%m-%d')
+        today_date = datetime.datetime.now().strftime('%B %d, %Y')
         current_day_details = [item for item in api_response['list'] if item['dt_txt'].startswith(current_date)]
 
         for entry in current_day_details:
@@ -44,7 +45,7 @@ def index():
 
         return render_template('index.html', city=user_input, currentWeather=currentWeather, currentTemp=currentTemp,
                                country=country, currentHumidity=currentHumidity, currentFeels_like=currentFeels_like,
-                               current_day_details=current_day_details)
+                               current_day_details=current_day_details,today_date=today_date)
 
     return render_template('index.html')
 
